@@ -54,12 +54,32 @@ int main(int argc, char *argv[]) {
         printf("\n");
     }
 
-    // Free allocated memory (free each row and then the array of row pointers)
+    // Subtask 4: creataing the "matrix.txt" file ad writing the matrix inside
+    FILE *pFile = NULL;
+    pFile = fopen("matrix.txt", "w"); // Opening the file in write mode
+    if (pFile == NULL) {
+        printf("Failed to open file 'matrix.txt'\n");
+        return -1;
+    }
+    
+    // Writing the matrix to the file
+    for (int i = 0; i < nrows; i++) {
+        for (int j = 0; j < ncols; j++) {
+            fprintf(pFile, "%d", theArray[i][j]); // Write the current value
+            if (j < ncols - 1) {
+                fprintf(pFile, " "); // Add space between numbers, except the last one in each row
+            }
+        }
+        fprintf(pFile, "\n");
+    }
+    fclose(pFile);
+
+    
+    // Free allocated memory AFTER writing in the file (free each row and then the array of row pointers)
     for (int i = 0; i < nrows; i++) {
         free(theArray[i]);
     }
     free(theArray);
-
 
     return 0;
 }
