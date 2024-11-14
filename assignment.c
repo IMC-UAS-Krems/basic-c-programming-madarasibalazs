@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
         char *end;
         long val = strtol(argv[i], &end, 10); // Convert the argument to a long integer
 
-        // Check if conversion is successful and if value is greater than 0
+        // Check if conversion is successful and if the value is greater than 0
         if (*end != '\0' || val <= 0) {
             printf("Incorrect usage. The parameters you provided are not positive integers\n");
             return 0;
@@ -33,20 +33,20 @@ int main(int argc, char *argv[]) {
     int nrows = (int)strtol(argv[1], NULL, 10);  // Number of rows
     int ncols = (int)strtol(argv[2], NULL, 10);  // Number of columns
 
-    // Memory allocation
+    // Dynamic memory allocation
     int **theArray = (int**) malloc(nrows * sizeof(int*));
     for (int i = 0; i < nrows; i++) {
         theArray[i] = (int*) malloc(ncols*sizeof(int));
     }
 
-    // Fill the matrix with random values between 1 and 100
+    // Fill the matrix with random values between 1 and 100 using the given random number generator (sent into Teams)
     for(int i = 0; i < nrows; ++i) {
         for (int j = 0; j < ncols; j++) {
             theArray[i][j] = minrand + rand() % (maxrand - minrand + 1);
         }
     }
 
-    // Print the matrix to the console (this is just for myself, solely for testing purposes)
+    // Print the matrix to the console --> this is just for myself, solely for testing purposes
     for (int i = 0; i < nrows; i++) {
         for (int j = 0; j < ncols; j++) {
             printf("%d\t", theArray[i][j]);
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
         printf("\n");
     }
 
-    // Subtask 4: creataing the "matrix.txt" file ad writing the matrix inside
+    // Subtask 4: creating the "matrix.txt" file and writing the matrix into it
     FILE *pFile = NULL;
     pFile = fopen("matrix.txt", "w"); // Opening the file in write mode
     if (pFile == NULL) {
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
     fclose(pFile);
 
     
-    // Free allocated memory AFTER writing in the file (free each row and then the array of row pointers)
+    // Free allocated memory AFTER writing in the file
     for (int i = 0; i < nrows; i++) {
         free(theArray[i]);
     }
